@@ -1,4 +1,5 @@
 from domain.domain import Question
+import random
 
 
 class QuizNotPossibleException(Exception):
@@ -54,22 +55,19 @@ class QuestionService:
         # Now we have to create the quiz, choosing firstly the questions that meet the difficulty level, then complete with others. 
         quiz_list = []
 
-        index = 0
         list_of_questions = self.get_all()
 
-        while index < len(list_of_questions) and len(quiz_list) < number_of_questions:
-            if list_of_questions[index].difficulty == difficulty:
-                quiz_list.append(list_of_questions[index])
+        while len(quiz_list) < number_of_questions // 2:
+            random_question = random.choice(list_of_questions)
+            if random_question.difficulty == difficulty and random_question not in quiz_list:
+                quiz_list.append(random_question)
 
-            index += 1
+        while len(quiz_list) < number_of_questions:
+            random_question = random.choice(list_of_questions)
+            if random_question.difficulty != difficulty and random_question not in quiz_list:
+                quiz_list.append(random_question)
 
-        index = 0
-        
-        while index < len(list_of_questions) and len(quiz_list) < number_of_questions:
-            if list_of_questions[index].difficulty != difficulty:
-                quiz_list.append(list_of_questions[index])
-
-            index += 1
+        quiz_list.sort(key = lambda x: x.id)
 
         # Now let's sort the questions in the quiz. 
         temporary_list = []

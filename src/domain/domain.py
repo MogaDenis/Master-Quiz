@@ -1,6 +1,6 @@
 class Question:
     def __init__(self, id, text, choice_a, choice_b, choice_c, correct_choice, difficulty):
-        self._id = id
+        self._id = int(id)
         self._text = text
         self._choice_a = choice_a
         self._choice_b = choice_b
