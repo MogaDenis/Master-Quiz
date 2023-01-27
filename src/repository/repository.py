@@ -5,6 +5,23 @@ class DuplicateQuestionException(Exception):
     pass
 
 
+class QuestionRepoIterator:
+    def __init__(self, repo):
+        self._repo = repo
+        self._index = 0
+
+    def __iter__(self):
+        pass
+
+    def __next__(self):
+        if self._index >= len(self._repo):
+            raise StopIteration
+
+        self._index += 1
+
+        return self._repo._list_of_questions[self._index - 1]
+
+
 class QuestionRepo:
     def __init__(self, test_state=False):
         self._list_of_questions = []
@@ -78,6 +95,12 @@ class QuestionRepo:
         
         if not test_state:
             self.save_file('master_list.txt')
+
+    def __iter__(self):
+        return QuestionRepoIterator(self)
+
+    def __len__(self):
+        return len(self._list_of_questions)
 
     def save_file(self, filename):
         """
