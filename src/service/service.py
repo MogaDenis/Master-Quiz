@@ -9,7 +9,7 @@ class QuestionService:
     def __init__(self, question_repo):
         self._repo = question_repo
 
-    def add_question(self, question_arguments):
+    def add_question(self, question_arguments, test_state=False):
         """
             This method receives the arguments representing the attributes of a question object, creates it and then sends it to the repository.
 
@@ -18,7 +18,10 @@ class QuestionService:
         new_question = Question(question_arguments[0], question_arguments[1], question_arguments[2], question_arguments[3], 
         question_arguments[4], question_arguments[5], question_arguments[6])
 
-        self._repo.add_question(new_question)
+        self._repo.add_question(new_question, test_state)
+
+        if test_state:
+            return new_question
 
     def get_all(self):
         return self._repo.get_all()

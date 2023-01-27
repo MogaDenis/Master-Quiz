@@ -6,13 +6,14 @@ class DuplicateQuestionException(Exception):
 
 
 class QuestionRepo:
-    def __init__(self):
+    def __init__(self, test_state=False):
         self._list_of_questions = []
         self._easy_count = 0
         self._medium_count = 0
         self._hard_count = 0
         self._total_count = 0
-        self.load_file('master_list.txt')
+        if not test_state:
+            self.load_file('master_list.txt')
 
     @property
     def total_count(self):
@@ -49,7 +50,7 @@ class QuestionRepo:
     def get_all(self):
         return self._list_of_questions[:]
 
-    def add_question(self, new_question):
+    def add_question(self, new_question, test_state=False):
         """
             This method adds a question to the list. It checks if the given argument is a Question object, raises an Exception if not. 
 
@@ -74,8 +75,9 @@ class QuestionRepo:
         self.total_count += 1
 
         self._list_of_questions.append(new_question)
-
-        self.save_file('master_list.txt')
+        
+        if not test_state:
+            self.save_file('master_list.txt')
 
     def save_file(self, filename):
         """
