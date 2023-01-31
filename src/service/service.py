@@ -84,7 +84,7 @@ class QuestionService:
                 temporary_list.append(question)
 
         # Now let's save the list into a text file. 
-        open_file = open(filename, 'w')
+        open_file = open(f"src/{filename}", 'w')
 
         for question in temporary_list:
             open_file.write(str(question) + '\n')

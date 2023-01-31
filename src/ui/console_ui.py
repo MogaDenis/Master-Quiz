@@ -47,6 +47,9 @@ class ConsoleUI:
             self._service.add_question(arguments)
 
         elif tokens[0] == 'create':
+            if len(tokens) != 4:
+                raise InvalidInputException
+
             difficulty = tokens[1]
             number_of_questions = tokens[2]
             filename = tokens[3]
@@ -69,7 +72,7 @@ class ConsoleUI:
             score = 0
 
             try:
-                open_file = open(filename, 'r')
+                open_file = open(f"src/{filename}", 'r')
 
                 lines = open_file.readlines()
 

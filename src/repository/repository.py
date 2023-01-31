@@ -30,7 +30,7 @@ class QuestionRepo:
         self._hard_count = 0
         self._total_count = 0
         if not test_state:
-            self.load_file('master_list.txt')
+            self.load_file('src/master_list.txt')
 
     @property
     def total_count(self):
@@ -94,7 +94,7 @@ class QuestionRepo:
         self._list_of_questions.append(new_question)
         
         if not test_state:
-            self.save_file('master_list.txt')
+            self.save_file('src/master_list.txt')
 
     def __iter__(self):
         return QuestionRepoIterator(self)
